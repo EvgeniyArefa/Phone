@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block menu %}
+    {% if sale == 0 %}
+        <a class="nav-link" href="/"><strong> Home </strong></a>
+        <a class="nav-link active" href="/catalog/"><strong> Catalog </strong></a>
+        <a class="nav-link" href="/catalog/sale"><strong> Sales </strong></a>
+        <a class="nav-link" href="/basket"><strong> Basket </strong></a>
+        <a class="nav-link" href="/delivery"><strong> Delivery </strong></a>
+    {% else %}
+        <a class="nav-link" href="/"><strong> Home </strong></a>
+        <a class="nav-link" href="/catalog/"><strong> Catalog </strong></a>
+        <a class="nav-link active" href="/catalog/sale"><strong> Sales </strong></a>
+        <a class="nav-link" href="/basket"><strong> Basket </strong></a>
+        <a class="nav-link" href="/delivery"><strong> Delivery </strong></a>
+    {% endif %}
+{% endblock %}
+
+{% block main %}
+    {% if sale == 0 %}
+        <h3><img src="{% static "catalog/images/Queshion.jpg" %}" width="190" height="190" alt="catalog" align="left" vspace="1" hspace="1"><br><br><br><strong><u> Категории:</u></strong>
+    {% else %}
+        <h3><img src="{% static "catalog/images/Queshion dol.jpg" %}" width="190" height="190" alt="catalog" align="left" vspace="1" hspace="1"><br><br><br><strong><u> Категории:</u></strong>
+    {% endif %}    
+    {% for n in name_cat %}
+        {% if n.name == cat_name %}
+            <a class="nav-cat active" href="{% url 'catalog:catalog_id' n.id %}"><strong>{{n.name}}</strong></a>
+        {% else %}
+            <a class="nav-cat" href="{% url 'catalog:catalog_id' n.id %}">{{n.name}}</a>
+        {% endif %}
+    {% endfor %}</h3>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="filter">
+                {% if cat_name != "Аксессуары" %}
+                    <h4><strong><u>Фильтр по производителю:</u></strong></h4>
+                    {% for n in names_prod %}
+                        {% if n.reserve_2 == prod_name %}
+                            <h9><p><a class="nav-prod active" href="{% url 'catalog:prod' n.reserve_2 %}"><strong>{{n.reserve_2}}</strong></a></p></h9><br>
+                        {% else %}
+                            <h9><p><a class="nav-prod" href="{% url 'catalog:prod' n.reserve_2 %}"><strong>{{n.reserve_2}}</strong></a></p></h9><br>
+                        {% endif %}
+                    {% endfor %}
+                    {% if prod_name == None %}
+                        <h8><a class="nav-prod active" href="{% url 'catalog:prod' 'None' %}"><strong>Все</strong></a></h8>
+                    {% else %}
+                            <h8><a class="nav-prod" href="{% url 'catalog:prod' 'None' %}"><strong>Все</strong></a></h8>
+                    {% endif %}
+                {% else %}
+                    <h4><strong><u>Фильтр по подгруппе:</u></strong></h4>
+                    {% for n in names_acces %}
+                        {% if n.accessory == acces_name %}
+                            <h9><p><a class="nav-prod active" href="{% url 'catalog:acces' n.accessory %}"><strong>{{n.accessory}}</strong></a></p></h9><br>
+                        {% else %}
+                            <h9><p><a class="nav-prod" href="{% url 'catalog:acces' n.accessory %}"><strong>{{n.accessory}}</strong></a></p></h9><br>
+                        {% endif %}
+                    {% endfor %}
+                    {% if acces_name == None %}
+                        <h8><a class="nav-prod active" href="{% url 'catalog:acces' 'None' %}"><strong>Все</strong></a></h8>
+                    {% else %}
+                            <h8><a class="nav-prod" href="{% url 'catalog:acces' 'None' %}"><strong>Все</strong></a></h8>
+                    {% endif %}
+                {% endif %}
+                <br>
+                <br>
+                <br>
+                <h4><strong><u>Сортировать по:</u></strong></h4>
+                {% if filter_name == '1' %}
+                    <p><a class="nav-prod active" href="{% url 'catalog:filter' '1' %}"><strong>возрастанию цены</strong></a></p><br>
+                {% else %}
+                    <p><a class="nav-prod" href="{% url 'catalog:filter' '1' %}"><strong>возрастанию цены</strong></a></p><br>
+                {% endif %}
+                {% if filter_name == '2' %}
+                    <p><a class="nav-prod active" href="{% url 'catalog:filter' '2' %}"><strong>убыванию цены</strong></a></p><br>
+                {% else %}
+                    <p><a class="nav-prod" href="{% url 'catalog:filter' '2' %}"><strong>убыванию цены</strong></a></p><br>
+                {% endif %}
+                {% if filter_name == '3' %}
+                    <p><a class="nav-prod active" href="{% url 'catalog:filter' '3' %}"><strong>популярности</strong></a></p><br>
+                {% else %}
+                    <p><a class="nav-prod" href="{% url 'catalog:filter' '3' %}"><strong>популярности</strong></a></p><br>
+                {% endif %}
+                {% if filter_name == '4' %}
+                    <p><a class="nav-prod active" href="{% url 'catalog:filter' '4' %}"><strong>дате публикации</strong></a></p><br>
+                {% else %}
+                    <p><a class="nav-prod" href="{% url 'catalog:filter' '4' %}"><strong>дате публикации</strong></a></p><br>
+                {% endif %}
+                {% if filter_name == '0' %}
+                    <p><a class="nav-prod active" href="{% url 'catalog:filter' '0' %}"><strong>без сортировки</strong></a></p><br>
+                {% else %}
+                    <p><a class="nav-prod" href="{% url 'catalog:filter' '0' %}"><strong>без сортировки</strong></a></p><br>
+                {% endif %}
+                <br>
+                <br>
+                {% if cat_name != "Аксессуары" %}
+                    <h4><strong><u>Фильтровать по цене:</u></strong></h4>
+                    <form action="catalog/price" method="post">
+                        {% csrf_token %}
+                        {{ form_price_filter.as_p }}
+                        <p>Min цена:<input class="b1" type="float" name="min_price" value={{ MIN_PR }}></p>
+                        <p>Max цена:<input class="b1" type="float" name="max_price"value={{ MAX_PR }}></p>
+                        {% if mes_error %}
+                            <h2>{{ mes_error }}</h2>
+                        {% endif %}
+                        <input type="submit" value="Фильтровать" />
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+        {% for good in object_list %}
+            <div class="col-lg-3">
+                <h4 align="center">{{ good.name|truncatechars:28 }}</h4>
+                <h5 align="left">Цвет: {{ good.color }}</h5>
+                {% if good.sale > 0 %}
+                    <img src="{% static good.reserve_1 %}" width="236" height="164" alt={{ good.name }} align="center" vspace="5" hspace="5"><h4 align="center"><br><p><strike>{{good.price|floatformat:"2" }} грн</strike></p></h4>
+                {% else %}
+                    <img src="{% static good.reserve_1 %}" width="236" height="164" alt={{ good.name }} align="center" vspace="5" hspace="5"><h4 align="center"><br><p>{{good.price|floatformat:"2" }} грн</p></h4>
+                {% endif %}
+                {% if good.sale > 0 %}
+                    {% if cat_name != "Аксессуары" %}
+                        <h4 class="sale">Скидка - {{ good.sale }} %</h4>
+                        <h4 class="sale-price">{{ good.reserve_3|floatformat:"2" }} грн</h4>
+                    {% else %}
+                        <h4 class="sale_a">Скидка - {{ good.sale }} %</h4>
+                        <h4 class="sale-price_a">{{ good.reserve_3|floatformat:"2" }} грн</h4>
+                    {% endif %}
+                {% endif %}
+                {% if cat_name != "Аксессуары" %}
+                    <p align="center" class="text"> {{ character.0 }} <strong>{{ good.character_1 }}</strong> {{ character.1 }} <strong>{{ good.character_2 }}</strong> {{ character.3 }} <strong>{{ good.character_4 }}</strong> {{ character.4 }} <strong>{{ good.character_5 }}</strong> ...</p>
+                {% endif %}
+                <a class="btn btn-primary" href="{% url 'catalog:good' good_id=good.id %}?page={{ page_obj.number }}" role="button"><strong>Подробнее... &raquo;</strong></a>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+        {% endfor %}
+    </div>
+    <ul class="pagination">
+        {% if page_obj.number > 1 %}
+            <li><a href="?page_obj=1">&laquo; First page</a></li>
+        {% else %}
+            <li class="disabled"><a href="">&laquo; First page</a></li>
+        {% endif %}
+        {% if page_obj.has_previous %}
+                <li><a href="?page={{ page_obj.previous_page_number }}">&laquo; Prev</a></li>
+            {% else %}
+                <li class="disabled"><a href="">&laquo; Prev</a></li>
+        {% endif %}
+        {% if paginator.num_pages >= 1 %}
+            {% for page in paginator.page_range %}
+                <li class="{% if page_obj.number == page %}active{% endif %}">
+                    <a href="?page={{ page }}">{{ page }}</a>
+                </li>
+            {% endfor %}
+        {% endif %}
+        {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}">Next &raquo;</a></li>
+        {% else %}
+            <li class="disabled"><a href="">Next &raquo; </a></li>
+        {% endif %}
+        {% if page_obj.number < paginator.num_pages %}
+            <li><a href="?page={{ paginator.num_pages }}">Last page &raquo;</a></li>
+        {% else %}
+            <li class="disabled"><a href="">Last page &raquo; </a></li>
+        {% endif %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,258 @@
+@media (min-width: 48em) {
+  html {
+    font-size: 30px;
+  }
+}
+
+body {
+
+}
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 600;
+  color: #333;
+}
+
+.text {
+  color: #929292;
+  font-size: small;
+}
+/*
+ * Override Bootstrap's default container.
+ */
+
+.container {
+  max-width: 100rem;
+}
+
+
+/*
+ * Masthead for nav
+ */
+
+.blog-masthead {
+  font-size: 30px;
+  margin-bottom: 2rem;
+  background-color: #ff9c9c;
+  box-shadow: inset 0 -.1rem .25rem rgba(0,0,0,.1);
+}
+
+/* Nav links */
+.nav-link {
+  position: relative;
+  padding: 2rem;
+  font-weight: 500;
+  color: #F00;
+}
+.nav-link:hover,
+.nav-link:focus {
+  color: #fff;
+  background-color: transparent;
+}
+
+/* Active state gets a caret at the bottom */
+.nav-link.active {
+  color: #fff;
+}
+.nav-link.active::after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -.3rem;
+  vertical-align: middle;
+  content: "";
+  border-right: .3rem solid transparent;
+  border-bottom: .3rem solid;
+  border-left: .3rem solid transparent;
+}
+
+/* Nav cat */
+.nav-cat {
+  position: relative;
+  font-size: x-large;
+  padding: 1rem;
+  color: #b6b6b6;
+}
+.nav-cat:hover,
+.nav-cat:focus {
+  color: #F00;
+  background-color: transparent;
+}
+/* Active state gets a caret at the bottom */
+.nav-cat.active {
+  color: #F00;
+}
+.nav-cat.active::after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -.3rem;
+  vertical-align: middle;
+  border-right: .3rem solid transparent;
+  border-bottom: .3rem solid;
+  border-left: .3rem solid transparent;
+}
+
+/* Nav prod */
+.nav-prod {
+  position: relative;
+  font-size: large;
+  padding: 1rem;
+  color: #b6b6b6;
+}
+.nav-prod:hover,
+.nav-prod:focus {
+  color: #F00;
+  background-color: transparent;
+}
+/* Active state gets a caret at the bottom */
+.nav-prod.active {
+  color: #F00;
+}
+.nav-prod.active::after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -.3rem;
+  vertical-align: middle;
+  border-right: .3rem solid transparent;
+  border-bottom: .3rem solid;
+  border-left: .3rem solid transparent;
+}
+
+.filter {
+  text-align: center;
+}
+
+.btn {
+  background-color: #ff9c9c;
+  position: relative;
+  bottom: 0px;
+  left: 65px;
+  border-color: #F00;
+  color: #F00;
+}
+.otn {
+  background-color: #ff9c9c;
+  position: absolute;
+  bottom: 20px;
+  right: 240px;
+  border-color: #F00;
+  color: #F00;
+  border-radius: 0.25rem;
+}
+
+.img-link {
+  position: relative;
+  left: 65px;
+  padding: 2rem;
+  font-weight: 500;
+  color: #F00;
+}
+
+
+.blog-footer {
+  padding: 2.5rem 0;
+  color: #999;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-top: .05rem solid #e5e5e5;
+}
+.blog-footer p:last-child {
+  margin-bottom: 0;
+}
+.pagination {
+  padding-left: 30%;
+}
+.sale {
+  position: absolute;
+  bottom: 387px;
+  right: 15px;
+  color: #F00;
+  font-weight: bold;
+}
+.sale-price {
+  position: absolute;
+  bottom: 182px;
+  right: 92px;
+  color: #F00;
+}
+.sale_a {
+  position: absolute;
+  bottom: 322px;
+  right: 15px;
+  color: #F00;
+  font-weight: bold;
+}
+.sale-price_a {
+  position: absolute;
+  bottom: 112px;
+  right: 92px;
+  color: #F00;
+}
+.b3 {
+  color: #F00;
+}
+.b2 {
+  color: green;
+}
+.b1 {
+  color: #b6b6b6;
+}
+#main {
+  margin-left: 180px;
+  padding: 10px;
+}
+#main table {
+  width: 100%;
+  border-collapse: collapse;
+}
+#main table td, #main table th {
+  border: 1px #666666 solid;
+  padding: 5px;
+}
+#main table td.centered {
+  text-align: center;
+}
+#main table th.centered {
+  text-align: center;
+}
+
+
+
+#maino {
+  margin-left: 450px;
+  padding: 20px;
+}
+#maino table {
+  width: 60%;
+  border-collapse: collapse;
+}
+#maino table td, #maino table th {
+  border: 1px #666666 solid;
+  padding: 5px;
+}
+#maino table td.centered {
+  text-align: center;
+}
+#maino table th.centered {
+  text-align: center;
+}

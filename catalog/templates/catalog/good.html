@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block menu %}
+    <a class="nav-link" href="/"><strong> Home </strong></a>
+    <a class="nav-link active" href="/catalog/"><strong> Catalog </strong></a>
+    <a class="nav-link" href="/catalog/sale"><strong> Sales </strong></a>
+    <a class="nav-link" href="/basket"><strong> Basket </strong></a>
+    <a class="nav-link" href="/delivery"><strong> Delivery </strong></a>
+{% endblock %}
+
+{% block main %}   
+    <div class="row">
+        {% if GOOD_MENU == '1' %}
+            <div class="col-lg-5">
+                <p>Код товара: <strong>{{good.code}}</strong></p>
+                <img src="{% static imagess %}" width="400" height="277" alt={{ good.name }} align="middle" vspace="5" hspace="5"><h1><strong><a class="img-link" href="{% url 'catalog:image' good_id=good.id image_side='left' %}?page={{ pn }}">&lt</a><strong><a class="img-link" href="{% url 'catalog:image' good_id=good.id image_side='right' %}?page={{ pn }}">&gt</a></strong></h1>
+                <a class="otn" href="{% url 'catalog:catalog_id' %}?page={{ pn }}">&larr;<strong>Назад</strong></a>
+            </div>
+        {% else %}
+            <div class="col-lg-5">
+                <p>Код товара: <strong>{{good.code}}<strong></p>
+                <img src="{% static imagess %}" width="400" height="277" alt={{ good.name }} align="middle" vspace="5" hspace="5">
+            </div>
+        {% endif %}
+        {% if GOOD_MENU == '1' %}
+            <a class="nav-prod active" href="{% url 'catalog:menu' good_id=good.id menu_name='1' %}?page={{ pn }}">Основное</a>
+        {% else %}
+            <a class="nav-prod" href="{% url 'catalog:menu' good_id=good.id menu_name='1' %}?page={{ pn }}">Основное</a>
+        {% endif %}
+        {% if GOOD_MENU == '2' %}
+            <a class="nav-prod active" href="{% url 'catalog:menu' good_id=good.id menu_name='2' %}?page={{ pn }}">Характеристики</a>
+        {% else %}
+            <a class="nav-prod" href="{% url 'catalog:menu' good_id=good.id menu_name='2' %}?page={{ pn }}">Характеристики</a>
+        {% endif %}
+        {% if GOOD_MENU == '3' %}    
+            <a class="nav-prod active" href="{% url 'catalog:menu' good_id=good.id menu_name='3' %}?page={{ pn }}">Описание</a>
+        {% else %}
+            <a class="nav-prod" href="{% url 'catalog:menu' good_id=good.id menu_name='3' %}?page={{ pn }}">Описание</a>
+        {% endif %}
+        {% if GOOD_MENU == '4' %}
+            <a class="nav-prod active" href="{% url 'catalog:menu' good_id=good.id menu_name='4' %}?page={{ pn }}">Отзывы</a>
+        {% else %}
+            <a class="nav-prod" href="{% url 'catalog:menu' good_id=good.id menu_name='4' %}?page={{ pn }}">Отзывы</a>
+        {% endif %}
+        <br>
+        <br></strong>
+        {% if GOOD_MENU == '1' %}
+            <div class="col-lg-4">
+                {% if good.sale > 0 %}
+                    <h2 class="b3"><strong><i>Скидка: {{ good.sale }}% </i></strong></h2>
+                    <br>
+                    <h4>Старая цена: <strike> {{ good.price }}</strike></h4>
+                    <h4>Новая цена: <strong> {{ good.reserve_3 }} </strong></h4>
+                {% else %}
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <h4>Цена: <strong> {{ good.price }} </strong></h4>
+                {% endif %}
+                <br>
+                <h5>Цвет: <strong> {{ good.color }} </strong></h5>
+                <br>
+                <h4 class="text"> {{ character.0 }}<strong>{{ good.character_1 }}</strong></h4>
+                <h4 class="text"> {{ character.1 }}<strong>{{ good.character_2 }}</strong></h4>
+                <h4 class="text"> {{ character.2 }}<strong>{{ good.character_3 }}</strong></h4>
+                <h4 class="text"> {{ character.3 }}<strong>{{ good.character_4 }}</strong></h4>
+                <h4 class="text"> {{ character.4 }}<strong>{{ good.character_5 }}</strong></h4>
+                <h4 class="text"> {{ character.5 }}<strong>{{ good.character_6 }}</strong></h4>
+                <br>
+                <br>
+                <a class="btn btn-primary" href="{% url 'catalog:buy' good_id=good.id %}?page={{ pn }}" role="button"><strong>&laquo; Купить &raquo;</strong></a>
+                <br>
+                <br>
+                <br>
+            </div>
+            <div class="col-lg-3">
+                <h5>{{ good.text|linebreaksbr|truncatewords:150 }}</h5>
+            </div>
+        {% endif %}
+        {% if GOOD_MENU == '2' %}
+            <div class="col-lg-7">
+                <br>
+                <h3><strong><u>Характеристики:</u></strong></h3>
+                <br>
+                <h4> {{ character.0 }}<strong>{{ good.character_1 }}</strong></h4>
+                <h4> {{ character.1 }}<strong>{{ good.character_2 }}</strong></h4>
+                <h4> {{ character.2 }}<strong>{{ good.character_3 }}</strong></h4>
+                <h4> {{ character.3 }}<strong>{{ good.character_4 }}</strong></h4>
+                <h4> {{ character.4 }}<strong>{{ good.character_5 }}</strong></h4>
+                <h4> {{ character.5 }}<strong>{{ good.character_6 }}</strong></h4>
+                <br>
+                <br>
+                <a class="btn btn-primary" href="btn btn-primary" href="{% url 'catalog:buy' good_id=good.id %}?page={{ pn }}" role="button"><strong>&laquo; Купить &raquo;</strong></a>
+                <br>
+                <br>
+                <br>
+            </div>
+        {% endif %}
+        {% if GOOD_MENU == '3' %}
+            <div class="col-lg-7">
+                <br>
+                <h3 align="center"><strong><u>Подробное описание:</u></strong></h3>
+                <br>
+                <h4>{{ good.text|linebreaksbr }}</h4>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

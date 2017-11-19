@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block menu %}
+    <a class="nav-link" href="/"><strong> Home </strong></a>
+    <a class="nav-link active" href="/catalog/"><strong> Catalog </strong></a>
+    <a class="nav-link" href="/catalog/sale"><strong> Sales </strong></a>
+    <a class="nav-link" href="/basket"><strong> Basket </strong></a>
+    <a class="nav-link" href="/delivery"><strong> Delivery </strong></a>
+{% endblock %}
+
+{% block main %}  
+    <div class="row">
+        <h3 align="center">Вы выбрали: <strong>{{good.name}}<strong></h3>
+        <div class="col-lg-5">
+            <img src="{% static good.reserve_1 %}" width="400" height="277" alt={{ good.name }} align="middle" vspace="5" hspace="5">
+            <br>
+            <br>
+            <br>
+            <br>
+            <a class="otn" href="{% url 'catalog:catalog_id' %}?page={{ pn }}">&larr;<strong>Назад</strong></a>
+        </div>
+        <br>
+        <div class="col-lg-7">
+            {% if good.sale > 0 %}
+                <h4 class="b3">Цена: <strong> {{ good.reserve_3 }} </strong></h4>
+            {% else %}
+                <h4 class="b3">Цена: <strong> {{ good.price }} </strong></h4>
+            {% endif %}
+            <br>
+            <h5>Цвет:<strong>{{good.color}}</strong></h5>
+            <h5>Код товара:<strong>{{good.code}}</strong></h5>
+            <h5>{{ character.0 }} <strong> {{ good.character_1 }}</strong></h5>
+            <h5>{{ character.1 }} <strong> {{ good.character_2 }}</strong></h5>
+            <h5>{{ character.2 }} <strong> {{ good.character_3 }}</strong></h5>
+            <h5>{{ character.3 }} <strong> {{ good.character_4 }}</strong></h5>
+            <h5>{{ character.4 }} <strong> {{ good.character_5 }}</strong></h5>
+            <h5>{{ character.5 }} <strong> {{ good.character_6 }}</strong></h5>
+            <br>
+            <h4 class="b2">{{ mes_error }}</h4>
+            <br>
+            <br>
+            {% if mes_error %}
+                <a class="btn btn-primary" href="{% url 'basket:basket' %}" role="button"><strong>&laquo; Перейти в корзину &raquo;</strong></a>
+            {% else %}
+                <form action="{% url 'catalog:buy' good_id=good.id %}?page={{ pn }}" method="post">
+                    {% csrf_token %}
+                    {{ form_quadratic.as_p }}
+                    <label>Кол-во: </label>
+                    <input type="number" min="1" max="100" step="1" value="1" pattern="[0-9]{3}" name="count">
+                    <input type="submit" value="Подтверждение покупки">
+                </form>
+            {% endif %}
+            <br>
+            <br>
+            <br>
+        </div>
+    </div>
+{% endblock %}

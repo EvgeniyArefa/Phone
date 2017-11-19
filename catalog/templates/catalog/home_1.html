@@ -1,0 +1,139 @@
+<!doctype html>
+
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://cdn.jsdelivr.net/g/jquery@3.1.0,bootstrap@3.3.6"></script>
+        <link rel="stylesheet" href="{% static 'home/css/b.css' %}">
+
+    <title>Justified Nav Template for Bootstrap</title>
+
+    <link rel="stylesheet" href="{% static 'home/css/styles.css' %}">
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <header class="masthead">
+        <h3 class="text-muted">Project name</h3>
+
+        <nav class="navbar navbar-expand-md navbar-light bg-light rounded mb-3">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav text-md-center nav-justified w-100">
+              <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Projects</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Services</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Downloads</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+
+      <main role="main">
+
+        <!-- Jumbotron -->
+        <div class="jumbotron">
+          <h1>Marketing stuff!</h1>
+          <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>
+          <p><a class="btn btn-lg btn-success" href="#" role="button">Get started today</a></p>
+        </div>
+        <!-- Example row of columns -->
+        <div class="row">
+          <div class="col-lg-4">
+            <h2>Heading</h2>
+            <p><img src="{% static "home\images\smart\Apple\Apple iPhone 6s 64GB_1.jpg" %}" width="200" height="150" alt="Apple iPhone 6s 64GB" align="left" vspace="5" hspace="5">Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
+          </div>
+          <div class="col-lg-4">
+            <h2>Heading</h2>
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+            <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
+          </div>
+          <div class="col-lg-4">
+            <h2>Heading</h2>
+            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa.</p>
+            <p><a class="btn btn-primary" href="#" role="button">View details &raquo;</a></p>
+          </div>
+        </div>
+
+      </main>
+
+      <!-- Site footer -->
+      <footer class="footer">
+        <p>&copy; Company 2017</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="{% static 'home/js/jquery-3.2.1.slim.min.js' %}" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="{% static 'home/js/popper.min.js' %}"></script>
+    <script src="{% static 'home/js/bootstrap.min.js' %}"></script>
+  </body>
+</html>
+
+
+
+<ul class="pagination">
+        {% if paginator.num_pages > 1 %}
+            <li><a href="?page_obj=1">&laquo; First page</a></li>
+        {% else %}
+            <li class="disabled"><a href="">&laquo; First page</a></li>
+        {% endif %}
+
+        {% if paginator.has_previous %}
+            <li><a href="?page_obj={{ paginator.previous_page_number }}">&laquo; Prev</a></li>
+        {% else %}
+            <li class="disabled"><a href="">&laquo; Prev</a></li>
+        {% endif %}
+
+        {% if paginator.number >= 1 %}
+            {% for page_obj in paginator.page_range %}
+                <li class="{% if paginator.number == page_obj %}active{% endif %}">
+                    <a href="?page_obj={{ page_obj }}">{{ page_obj }}</a>
+                </li>
+            {% endfor %}
+        {% endif %}
+
+        {% if paginator.has_next %}
+            <li><a href="?page_obj={{ paginator.next_page_number }}">Next &raquo;</a></li>
+        {% else %}
+            <li class="disabled"><a href="">Next &raquo; </a></li>
+        {% endif %}
+
+        {% if paginator.number < paginator.paginator.num_pages %}
+            <li><a href="?page_obj={{ paginator.paginator.num_pages }}">Last page &raquo;</a></li>
+        {% else %}
+            <li class="disabled"><a href="">Last page &raquo; </a></li>
+        {% endif %}
+    </ul>

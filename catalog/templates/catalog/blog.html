@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+
+<link type="text/css" rel="stylesheet" href="{% static 'news/css/styles.css' %}">
+
+
+{% block header %}
+
+    <title>Новости блога</title>
+    <h1 class="blog-title">Впечатлившие меня новости</h1>
+    <br>
+    <img src="{% static "news\images\index.jpg" %}" width="1000" height="300" alt="Top image">
+
+{% endblock %}
+
+
+{% block content %}
+
+    {% for new_item in news %}
+        <div class="blog-post">
+                <h3><a href="{% url 'news:detail' new_item.id %}?page={{ news.number }}">{{ new_item.aplication_name }}</a></h3>
+                <h4><p class="blog-post-meta">{{ new_item.aplication_pub }}  <a href={{ new_item.aplication_url }}>{{ new_item.aplication_autor }}</a></p></h4>
+                <div>
+                    {{ new_item.aplication_text_1|truncatechars:300 }}<h4><a href="{% url 'news:detail' new_item.id %}?page={{ news.number }}"> Подробнее...</a></h4>
+                </div>
+        </div>        
+    {% endfor %}
+
+    <div class="text-center">
+        <ul class="pagination">
+            {% if news.number > 1 %}
+                <li><a href="?page=1">&laquo; First page</a></li>
+            {% else %}
+                <li class="disabled"><a href="">&laquo; First page</a></li>
+            {% endif %}
+
+            {% if news.has_previous %}
+                <li><a href="?page={{ news.previous_page_number }}">&laquo; Prev</a></li>
+            {% else %}
+                <li class="disabled"><a href="">&laquo; Prev</a></li>
+            {% endif %}
+
+            {% if news.number >= 1 %}
+                {% for page in news.paginator.page_range %}
+                    <li class="{% if news.number == page %}active{% endif %}">
+                        <a href="?page={{ page }}">{{ page }}</a>
+                    </li>
+                {% endfor %}
+            {% endif %}
+
+            {% if news.has_next %}
+                <li><a href="?page={{ news.next_page_number }}">Next &raquo;</a></li>
+            {% else %}
+                <li class="disabled"><a href="">Next &raquo; </a></li>
+            {% endif %}
+
+            {% if news.number < news.paginator.num_pages %}
+                <li><a href="?page={{ news.paginator.num_pages }}">Last page &raquo;</a></li>
+            {% else %}
+                <li class="disabled"><a href="">Last page &raquo; </a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+{% endblock %}
+
+
+{% block late %}
+
+    <h4>Самая свежая новость:</h4>
+    <em><h4><a href="{% url 'news:detail' late_new.id %}">{{ late_new.aplication_name }}</a></h4></em>
+    <br>
+    <br>
+    <h4>Самая популярная статья:</h4>
+    <em><h4><a href="{% url 'news:detail' popul_art.id %}">{{ popul_art.aplication_name }}</a></h4></em>
+    <br>
+    <br>
+    <h4>Самый свежий комментарий:</h4>
+    <em><h4><b>{{ late_comment.coment_text|truncatechars:100 }}</b></h4></em>
+    <h4><i>к статье:</i></h4>
+    <em><h4><a href="{% url 'news:detail' late_url.id %}">{{ late_url.aplication_name }}</h4></em>
+    <br>
+
+{% endblock %}
+
+    

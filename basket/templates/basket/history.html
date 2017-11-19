@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block menu %}
+    <a class="nav-link" href="/"><strong> Home </strong></a>
+    <a class="nav-link" href="/catalog/"><strong> Catalog </strong></a>
+    <a class="nav-link" href="/catalog/sale"><strong> Sales </strong></a>
+    <a class="nav-link active" href="/basket"><strong> Basket </strong></a>
+    <a class="nav-link" href="/delivery"><strong> Delivery </strong></a>
+{% endblock %}
+
+{% block main %}
+    <h3><img src="{% static "basket/images/Yes.jpg" %}" width="190" height="190" alt="catalog" align="left" vspace="1" hspace="1"><br><br><br><strong><u id='main'> </u></strong>
+    <a class="nav-cat" href="{% url 'basket:basket' %}"><strong>Кoрзина</strong></a><a class="nav-cat active" href="{% url 'basket:order' %}"><strong>Заказы</strong></a></h3>
+    <br>
+    {{ row }}
+    <br>
+    <h3 align="center">История заказа: №{{ order.id }} </h3>
+    <div id='maino'>
+        <table>
+            <tr>
+                <th class='centered'>Статус заказа</th>
+                <th class='centered'>Дата</th>
+            </tr>
+            <td class='centered'>
+            {% for good in order.history %}
+                {% if good == ';' %}
+                    {% if not forloop.last %}
+                        </td>
+                        <td class='centered'>
+                    {% endif %}
+                {% endif %}
+                {% if good == '.' %}
+                    {% if not forloop.last %}
+                        </td>
+                        <tr></tr>
+                        <td class='centered'>
+                    {% endif %}  
+                {% endif %}
+                {% if good != ';' and good != '.' %}
+                    {{ good }}
+                {% endif %}
+            {% endfor %}
+            </td>
+        </table>
+    </div>
+    <br>
+    <br>
+    <br>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% load static %}
+
+{% if good_id %}
+    <meta http-equiv="Refresh" content="0; {% url links good_id %}?page={{ page_obj.number }}">
+{% else %}
+    <meta http-equiv="Refresh" content="0; {% url links %}">
+{% endif %}

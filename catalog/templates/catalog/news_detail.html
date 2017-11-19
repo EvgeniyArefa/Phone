@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+
+{% load static %}
+
+
+<link type="text/css" rel="stylesheet" href="{% static 'news/css/styles.css' %}">
+
+
+{% block header %}
+
+    <title>Новости блога</title>
+    <h1 class="blog-post"><strong>{{ aplication_item.aplication_name }}</strong></h1>
+    <img src="{% static aplication_item.aplication_text_3 %}" width="450" height="300" alt="Top image">
+
+{% endblock %}
+
+
+{% block content %}
+
+        <div class="blog-post">
+            <p align="right" ><i><b>Рейтинг статьи {{ aplication_item.aplication_like }}</i></b></p>
+            {{ aplication_item.aplication_text_1|linebreaks }}
+            {{ aplication_item.aplication_text_2|linebreaks  }}
+            <br>
+            <br>
+            <form action="/news/like/{{ aplication_item.id }}" method="post">
+                {% csrf_token %}
+                <p><input type="submit" class="b1" value="Нравится статья" /></p>
+            </form>
+            <form action="/news/dislike/{{ aplication_item.id }}" method="post">
+                {% csrf_token %}
+                <p><input type="submit" class="b2" value="Не нравится статья" /></p>
+            </form>
+            <br>
+            <div><h3>Comments:</h3>
+                <h3>{% for comment in comments %}</h3>
+                    <pre><h5><p class="blog-post-meta">{{ comment.coment_pub }}  <strong>{{ comment.coment_autor }}</strong></p></h5>
+                    <h4>{{ comment.coment_text }}</h4></pre>
+                {% endfor %}
+                <form action="/news/addcomment/{{ aplication_item.id }}" method="post">
+                    {% csrf_token %}
+                    {{ form_comments.as_p }}
+                    <input type="submit" value="Send comment" />
+                </form>
+            </div>
+            <div>
+                <br>
+                <br>
+                <a class="btn btn-primary" href="{% url 'news:news' %}?page={{ pn }}">&larr; Return to back</a>
+            </div>
+        </div>
+
+{% endblock %}
+
+
+{% block late %}
+
+    <h4>Самая свежая новость:</h4>
+    <em><h4><a href="{% url 'news:detail' late_new.id %}">{{ late_new.aplication_name }}</a></h4></em>
+    <br>
+    <br>
+    <h4>Самая популярная статья:</h4>
+    <em><h4><a href="{% url 'news:detail' popul_art.id %}">{{ popul_art.aplication_name }}</a></h4></em>
+    <br>
+    <br>
+    <h4>Самый свежий комментарий:</h4>
+    <em><h4><b>{{ late_comment.coment_text|truncatechars:100 }}</b></h4></em>
+    <h4><i>к статье:</i></h4>
+    <em><h4><a href="{% url 'news:detail' late_url.id %}">{{ late_url.aplication_name }}</h4></em>
+    <br>
+
+{% endblock %}

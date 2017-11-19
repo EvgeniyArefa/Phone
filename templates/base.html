@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/bootstrap/3.3.6/css/bootstrap.min.css">
+    </head>
+    
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+    <body>
+        <header>
+            <div class="blog-masthead">
+                <div class="container">
+                    <nav class="nav">
+                        {% block menu %}
+                        {% endblock %}
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <main role="main" class="container">
+            {% block main %}
+            {% endblock %}
+        </main>
+        <footer class="blog-footer">
+            <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/mdo">@mdo</a>.</p>
+            <p>
+                <a href="#">Back to top</a>
+            </p>
+        </footer>
+    </body>
+</html>
