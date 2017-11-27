@@ -165,9 +165,5 @@ class HistoryOrderView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(HistoryOrderView, self).get_context_data(**kwargs)
-        cursor = connection.cursor()
-        cursor.execute("SELECT id FROM Order WHERE reserve_3 > 211000")
-        row = cursor.fetchone()
-        context["row"] = row
         return context
 

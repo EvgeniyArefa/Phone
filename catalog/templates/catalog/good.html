@@ -93,7 +93,7 @@
                 <h4> {{ character.5 }}<strong>{{ good.character_6 }}</strong></h4>
                 <br>
                 <br>
-                <a class="btn btn-primary" href="btn btn-primary" href="{% url 'catalog:buy' good_id=good.id %}?page={{ pn }}" role="button"><strong>&laquo; Купить &raquo;</strong></a>
+                <a class="btn btn-primary" href="{% url 'catalog:buy' good_id=good.id %}?page={{ pn }}" role="button"><strong>&laquo; Купить &raquo;</strong></a>
                 <br>
                 <br>
                 <br>
@@ -105,6 +105,26 @@
                 <h3 align="center"><strong><u>Подробное описание:</u></strong></h3>
                 <br>
                 <h4>{{ good.text|linebreaksbr }}</h4>
+            </div>
+        {% endif %}
+        {% if GOOD_MENU == '4' %}
+            <div class="col-lg-7">
+                <br>
+                <div><h4>Отзывы к данной моделе:</h4>
+                    <h4>{% for comment in comments %}</h4>
+                        <pre><h6>{{ comment.pub }}, {{ comment.autor }}</h6><h5><br>{{ comment.text }}</h5></pre>
+                    {% endfor %}
+                    <br>
+                    <br>
+                    <br>
+                    <h5>
+                    <form action="{% url 'catalog:addcomment' good_id=good.id %}" method="post">
+                        {% csrf_token %}
+                        {{ form_comments.as_p }}
+                        <input type="submit" value="Оставить свой отзыв" />
+                    </form>
+                    </h5>
+                </div>
             </div>
         {% endif %}
     </div>

@@ -4,6 +4,8 @@ from django.views.generic.detail import DetailView
 from catalog.models import Category, Good, Coment
 from basket.models import Order
 from django import forms
+from django.forms import ModelForm
+import datetime
 
 from django.http import HttpResponse
 
@@ -34,6 +36,13 @@ CHARACTER_СOVER = ['Совместимая модель: ', 'Форм-факт�
 class PriceFilterFrom(forms.Form):
     min_price = forms.FloatField
     max_price = forms.FloatField
+
+
+class CommentFrom(ModelForm):
+    class Meta:
+         model = Coment
+         fields = ['autor', 'text']
+         labels = {'autor': 'Автор', 'text': ''}
 
 
 def images_separation(image_in):
@@ -335,6 +344,8 @@ class GoodDetailView(DetailView):
         imagess = images[images_c]
         mes_error = MESSAGE
         MESSAGE = ""
+        comments = Coment.objects.filter(good=self.kwargs["good_id"])
+        form_comments = CommentFrom
         try:
             context["pn"] = self.request.GET["page"]
         except KeyError:
@@ -343,6 +354,8 @@ class GoodDetailView(DetailView):
         context["imagess"] = imagess
         context["GOOD_MENU"] = GOOD_MENU
         context["mes_error"] = mes_error
+        context["comments"] = comments
+        context["form_comments"] = form_comments
         if str(good_select.category) == 'Аксессуары':
             if good_select.accessory == 'PowerBank':
                 context["character"] = CHARACTER_POWER
@@ -353,6 +366,21 @@ class GoodDetailView(DetailView):
         else:
             context["character"] = CHARACTER_SMART
         return context
+
+
+class Addcomment(GoodDetailView):
+    form = None
+
+    def post(self, request, good_id, *args, **kwargs):
+        if request.method == "POST":
+            self.form = CommentFrom(request.POST)
+            now = datetime.datetime.now()
+            if self.form.is_valid():
+                comment = self.form.save(commit=False)
+                comment.good = Good.objects.get(id=good_id)
+                comment.pub = now
+                self.form.save()
+        return super(Addcomment, self).get(request, *args, **kwargs)
 
 
 class GoodBuyView(GoodDetailView):
@@ -521,5 +549,7 @@ def menu(request, good_id, menu_name):
 
 def contacts(request):
     return HttpResponse('contacts form')
+
+
 
 

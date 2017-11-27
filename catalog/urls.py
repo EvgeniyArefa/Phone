@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from . import views
 from catalog.views import GoodListView, GoodListCat, GoodDetailView, \
-    GoodBuyView, SaleListView
+    GoodBuyView, SaleListView, Addcomment
 
 app_name = 'catalog'
 urlpatterns = [
@@ -20,4 +20,5 @@ urlpatterns = [
         views.image_select, name='image'),
     url(r'^buy/(?P<good_id>\d+)/$', GoodBuyView.as_view(), name = "buy"),
     url(r'^contacts$', views.contacts, name = "contacts"),
+    url(r'^addcomment/(?P<good_id>[\d+]+)$', Addcomment.as_view(), name='addcomment'),
 ]

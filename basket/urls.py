@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from . import views
 from basket.views import BasketListView, OrderView, DelFirstView, \
-	DelLastView, DelAllView, MakeOrderView, HistoryOrderView
+    DelLastView, DelAllView, MakeOrderView, HistoryOrderView
 
 
 app_name = 'basket'
@@ -13,5 +13,5 @@ urlpatterns = [
     url(r'^dellast$', DelLastView.as_view(), name = "dellast"),
     url(r'^makeorder$', MakeOrderView.as_view(), name = "makeorder"),
     url(r'^history/(?P<good_id>\d+)$', HistoryOrderView.as_view(), 
-    	name = "history"),
+        name = "history"),
 ]
